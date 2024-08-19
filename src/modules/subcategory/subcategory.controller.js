@@ -26,7 +26,7 @@ export const addSubcategory = async (req, res, next) => {
   }
   // prepare data
   // upload image
-  const { secure_url, public_id } = await cloudinary.uploader.upload(req.file, { folder: "sat-tue/subcategory" })
+  const { secure_url, public_id } = await cloudinary.uploader.upload(req.file.path, { folder: "sat-tue/subcategory" })
   const slug = slugify(name);
   const subcategory = new Subcategory({
     name,
