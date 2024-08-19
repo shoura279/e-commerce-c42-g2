@@ -2,6 +2,7 @@
 import cors from 'cors';
 import dotenv from 'dotenv';
 import express from "express";
+import path from 'path';
 import Stripe from 'stripe';
 import { connectDB } from "./db/connection.js";
 import { Cart, Product } from './db/index.js';
