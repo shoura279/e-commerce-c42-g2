@@ -8,6 +8,7 @@ import categoryRouter from "../category/category.router.js";
 import { isAuthenticated } from "../../middleware/authentication.js";
 import { isAuthorized } from "../../middleware/authorization.js";
 import { roles } from "../../utils/constant/enums.js";
+import { cloudUpload } from "../../utils/multer-cloud.js";
 const subcategoryRouter = Router();
 
 // subcategoryRouter.use("/:categoryId", categoryRouter);
@@ -16,7 +17,8 @@ subcategoryRouter.post(
   "/",
   isAuthenticated(),
   isAuthorized([roles.ADMIN, roles.SELLER]),
-  fileUpload({ folder: "subcategory" }).single("image"),
+  // fileUpload({ folder: "subcategory" }).single("image"),
+  cloudUpload({}).single('image'),
   isValid(addSubcategoryVal),
   asyncHandler(addSubcategory)
 );

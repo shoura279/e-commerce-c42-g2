@@ -4,6 +4,7 @@ import { Category } from "../../../db/models/category.model.js";
 import { Subcategory } from "../../../db/models/subcategory.model.js";
 import { AppError } from "../../utils/appError.js";
 import { messages } from "../../utils/constant/messages.js";
+import cloudinary from "../../utils/cloudianry.js";
 
 // add subcategory
 export const addSubcategory = async (req, res, next) => {
@@ -24,12 +25,15 @@ export const addSubcategory = async (req, res, next) => {
     return next(new AppError(messages.subcategory.alreadyExist, 409));
   }
   // prepare data
+  // upload image
+  const { secure_url, public_id } = await cloudinary.uploader.upload(req.file, { folder: "sat-tue/subcategory" })
   const slug = slugify(name);
   const subcategory = new Subcategory({
     name,
     slug,
     category,
-    image: { path: req.file.path },
+    image: { secure_url, public_id },
+    createdBy: req.authUser._id
   });
   // add to db
   const createdSubcategory = await subcategory.save();
