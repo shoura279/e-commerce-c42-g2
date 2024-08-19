@@ -27,7 +27,7 @@ export const createBrand = async (req, res, next) => {
         name,
         slug,
         logo: { secure_url, public_id },
-        // todo createdBy token
+        createdBy: req.authUser._id
     })
     // add to db
     const createdBrand = await brand.save()// {}, null
