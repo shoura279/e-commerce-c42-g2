@@ -23,11 +23,13 @@ export const addCategory = async (req, res, next) => {
     return next(new AppError(messages.category.alreadyExist, 409));
   }
   // prepare data
+  // upload image
+  const { secure_url, public_id } = await cloudinary.uploader.upload(req.file.path, { folder: "sat-tue/category" })
   const slug = slugify(name);
   const category = new Category({
     name,
     slug,
-    image: { path: req.file.path },
+    image: { secure_url, public_id },
     createdBy: req.authUser._id
   });
   // add to db
