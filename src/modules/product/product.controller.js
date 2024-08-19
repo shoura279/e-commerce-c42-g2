@@ -63,6 +63,8 @@ export const addProduct = async (req, res, next) => {
     stock,
     mainImage,
     subImages,
+    createdBy: req.authUser._id,
+    updatedBy: req.authUser._id,
   });
   const createdProduct = await product.save();
   if (!createdProduct) {
