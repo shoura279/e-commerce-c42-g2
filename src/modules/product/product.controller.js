@@ -5,7 +5,6 @@ import { Subcategory } from "../../../db/models/subcategory.model.js";
 import { AppError } from "../../utils/appError.js";
 import cloudinary from "../../utils/cloudianry.js";
 import { messages } from "../../utils/constant/messages.js";
-import { ApiFeature } from "../../utils/apiFeature.js";
 
 // add product
 export const addProduct = async (req, res, next) => {
