@@ -24,6 +24,7 @@ app.use('/wishlist', allRouters.wishlistRouter)
 app.use('/cart', allRouters.cartRouter)
 app.use('/coupon', allRouters.couponRouter)
 app.use('/order', allRouters.orderRouter)
+app.use('/', (req, res, next) => { return res.json({ message: 'invalid url' }) })
 // global error
 app.use(globalErrorHandling);
 // listen server
