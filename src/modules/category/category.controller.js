@@ -28,6 +28,7 @@ export const addCategory = async (req, res, next) => {
     name,
     slug,
     image: { path: req.file.path },
+    createdBy: req.authUser._id
   });
   // add to db
   const createdCategory = await category.save(); // {},null
