@@ -1,11 +1,12 @@
 // import modules
 import cors from 'cors';
+import dotenv from 'dotenv';
 import express from "express";
+import Stripe from 'stripe';
 import { connectDB } from "./db/connection.js";
+import { Cart, Product } from './db/index.js';
 import * as allRouters from "./src/index.js";
 import { globalErrorHandling } from "./src/utils/appError.js";
-import Stripe from 'stripe';
-import { Cart, Product } from './db/index.js';
 // import categoryRouter from './src/modules/category/category.router.js'
 // import subcategoryRouter from './src/modules/subcategory/subcategory.router.js'
 // import brandRouter from './src/modules/brand/brand.router.js'
