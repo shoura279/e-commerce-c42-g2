@@ -1,4 +1,5 @@
 // import modules
+import cors from 'cors';
 import express from "express";
 import { connectDB } from "./db/connection.js";
 import * as allRouters from "./src/index.js";
@@ -13,6 +14,7 @@ const port = process.env.PORT || 3000;
 // connect to db
 connectDB();
 // parse req
+app.use(cors('*'))
 app.use(express.json());
 app.use("/category", allRouters.categoryRouter);
 app.use("/sub-category", allRouters.subcategoryRouter);
