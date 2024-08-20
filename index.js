@@ -5,7 +5,7 @@ import express from "express";
 import path from 'path';
 import Stripe from 'stripe';
 import { connectDB } from "./db/connection.js";
-import { Cart, Product } from './db/index.js';
+import { Cart, Order, Product } from './db/index.js';
 import * as allRouters from "./src/index.js";
 import { globalErrorHandling } from "./src/utils/appError.js";
 // import categoryRouter from './src/modules/category/category.router.js'
@@ -32,19 +32,18 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res)
 
   if (event.type == 'checkout.session.completed') {
 
-    // console.log(event);
+    console.log(event);
 
-    // const object = event.data.object;
-    // // logic
-    // // cart
-    // console.log(object.client_reference_id);
+    const object = event.data.object;
+    // logic
+    // cart
+    console.log(object.client_reference_id);
 
-    // const cart = await Cart.findById(object.client_reference_id)
-    // for (const product of cart.products) {
-    //   await Product.findByIdAndUpdate(product.productId, { $set: { $inc: { stock: -product.quantity } } })
-    // }
-    // cart.products = []
-    // await cart.save()
+    const order = await Order.findById(object.metadata.orderID)
+    for (const product of order.products) {
+      await Product.findByIdAndUpdate(product.productId, { $set: { $inc: { stock: -product.quantity } } })
+    }
+    await Cart.findOneAndUpdate({ user: order.user }, { products: [] })
   }
   // Return a 200 res to acknowledge receipt of the event
   res.send();

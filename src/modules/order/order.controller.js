@@ -72,7 +72,7 @@ export const createOrder = async (req, res, next) => {
             },
             line_items: orderCreated.products.map(product => {
                 // console.log(product);
-                
+
                 return {
                     price_data: {
                         currency: 'egp',
