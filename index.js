@@ -41,7 +41,7 @@ app.post('/webhook', express.raw({ type: 'application/json' }), async (req, res)
 
     const order = await Order.findById(object.metadata.orderID)
     for (const product of order.products) {
-      await Product.findByIdAndUpdate(product.productId, { $set: { $inc: { stock: -product.quantity } } })
+      await Product.findByIdAndUpdate(product.productId, { $inc: { stock: -product.quantity }  })
     }
     await Cart.findOneAndUpdate({ user: order.user }, { products: [] })
   }
